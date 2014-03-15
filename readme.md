@@ -1,11 +1,11 @@
- Sup!
- ====
+Sup!
+====
 
- The restaraurants productivity meter !
+The restaraurants productivity meter !
 
- ### Install :
+### Install :
 
- `pip install -r requirements.txt`
+`pip install -r requirements.txt`
 
 
- Sup icon from : Turbomilk - http://www.turbomilk.com
+Sup icon from : Turbomilk - http://www.turbomilk.com
