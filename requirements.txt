@@ -1,0 +1,8 @@
+Jinja2==2.7.2
+MarkupSafe==0.19
+argparse==1.2.1
+bottle==0.12.5
+gevent==1.0
+greenlet==0.4.2
+pickleDB==0.3
+wsgiref==0.1.2
