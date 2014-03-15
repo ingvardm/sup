@@ -31,6 +31,7 @@ def static(path):
     if os.path.splitext(path)[1] in config.get("allowed_static"):
         return static_file(path, root="public")
     else:
+        # No Content
         abort(204)
 
 

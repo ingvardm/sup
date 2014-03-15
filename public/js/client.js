@@ -3,7 +3,6 @@
 /* DOM */
 var pages = document.querySelector("#pages"),
     place_selector = document.querySelector("select"),
-    /* buttons */
     go_button = document.querySelector(".go").querySelector(".button"),
     reset_button = document.querySelector(".reset"),
     metric_buttons = document.querySelector(".metrics").querySelectorAll(".button");
