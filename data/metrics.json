@@ -1,0 +1,20 @@
+{
+    "metrics":
+        [
+            {
+                "title": "Total time",
+                "descr": "Total time taken in place.",
+                "role": "total"
+            },
+            {
+                "title": "Order time",
+                "descr": "Time taken to bring the orders.",
+                "role": "order"
+            },
+            {
+                "title": "Bill time",
+                "descr": "Time taken to bring the bill.",
+                "role": "bill"
+            }
+    ]
+}

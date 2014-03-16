@@ -32,8 +32,14 @@
         <div class="page">
           <!-- metrics page -->
           <div class="metrics">
-            {% include "metrics" %}
-         </div>
+            {%for met in metrics %}
+              <div data-role="{{ met["role"] }}">
+                <b>{{ met["title"] }}</b>
+                <div class="time">00:00:00</div>
+                <div class="button"> Start </div>
+              </div>
+            {% endfor %}
+          </div>
          <div class="button reset"> Reset </div>
         </div>
       </div>

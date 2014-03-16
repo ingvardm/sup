@@ -10,18 +10,19 @@ from bottle import run, get, post, static_file, request, abort
 config = dict(
     debug=True,
     allowed_static=(".css", ".js", ".png"),
-    places_db="data/places.json",
-    result_db="data/metrics.json")
+    places=pickledb.load("data/places.json", False).get("places"),
+    metrics=pickledb.load("data/metrics.json", False).get("metrics"),
+    results_db="data/results.json")
 
 
 def create_db():
-    db = pickledb.load(config.get("result_db"), False)
+    db = pickledb.load(config.get("results_db"), False)
     db.lcreate("visits")
     db.dump()
 
 
 def write_data(data):
-    db = pickledb.load(config.get("result_db"), False)
+    db = pickledb.load(config.get("results_db"), False)
     db.ladd("visits", data)
     db.dump()
 
@@ -46,13 +47,13 @@ def postmetrics():
 
 @get("/")
 def index():
-    db = pickledb.load(config.get("places_db"), False)
-    places = db.get("places")
-    return template("index", places=places)
+    return template("index",
+                    places=config.get("places"),
+                    metrics=config.get("metrics"))
 
 
 if __name__ == '__main__':
-    if not os.path.exists(config.get("result_db")):
+    if not os.path.exists(config.get("results_db")):
         # First run ?
         create_db()
 
