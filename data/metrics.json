@@ -2,19 +2,29 @@
     "metrics":
         [
             {
-                "title": "Total time",
+                "title": "Got in",
                 "descr": "Total time taken in place.",
-                "role": "total"
+                "role": "gotIN"
             },
             {
-                "title": "Order time",
+                "title": "Placed order",
                 "descr": "Time taken to bring the orders.",
-                "role": "order"
+                "role": "placedOrder"
             },
             {
-                "title": "Bill time",
+                "title": "Got the food",
                 "descr": "Time taken to bring the bill.",
-                "role": "bill"
+                "role": "gotFood"
+            },
+            {
+                "title": "Asked for a bill",
+                "descr": "Time taken to bring the bill.",
+                "role": "askedBill"
+            },
+            {
+                "title": "Got out",
+                "descr": "Time taken to bring the bill.",
+                "role": "gotOut"
             }
     ]
 }

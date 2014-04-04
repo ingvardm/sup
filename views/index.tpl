@@ -30,17 +30,18 @@
             </div>
         </div>
         <div class="page">
+            <div class="welcome">W</div>
+            <div class="curDate"></div>
           <!-- metrics page -->
           <div class="metrics">
             {%for met in metrics %}
               <div data-role="{{ met["role"] }}">
-                <b>{{ met["title"] }}</b>
                 <div class="time">00:00:00</div>
-                <div class="button"> Start </div>
+                <div class="button"> {{ met["title"] }} </div>
               </div>
             {% endfor %}
           </div>
-         <div class="button reset"> Reset </div>
+         <!-- <div class="button reset"> Reset </div> -->
         </div>
       </div>
     </div>

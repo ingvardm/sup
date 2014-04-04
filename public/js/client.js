@@ -4,8 +4,10 @@
 var pages = document.querySelector("#pages"),
     place_selector = document.querySelector("select"),
     go_button = document.querySelector(".go").querySelector(".button"),
-    reset_button = document.querySelector(".reset"),
-    metric_buttons = document.querySelector(".metrics").querySelectorAll(".button");
+    //reset_button = document.querySelector(".reset"),
+    metric_buttons = document.querySelector(".metrics").querySelectorAll(".button"),
+    welcomeTo = document.querySelector(".welcome"),
+    curDate = document.querySelector(".curDate");
 
 
 
@@ -13,7 +15,7 @@ var pages = document.querySelector("#pages"),
 
 place_selector.addEventListener("change", onPlaceChanged); 
 go_button.addEventListener("click", onGoBtnClick);
-reset_button.addEventListener("click", onResetBtnClick);
+//reset_button.addEventListener("click", onResetBtnClick);
 [].forEach.call(metric_buttons, function(btn){
     btn.addEventListener("click", onMetricBtnClick());
 });
@@ -28,6 +30,13 @@ function onPlaceChanged(){
 }
 
 function onGoBtnClick(){
+    var today = new Date(),
+        curDay = today.getDate(),
+        curMonth = today.getMonth() + 1,
+        curYear = today.getFullYear();
+    
+    curDate.innerHTML = "Today is: " + curDay +"/"+ curMonth +"/"+ curYear;
+    welcomeTo.innerHTML = "Welcome to " + place_selector.value;
     pages.classList.toggle("active");
 }
 
