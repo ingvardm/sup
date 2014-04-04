@@ -41,7 +41,7 @@
               </div>
             {% endfor %}
           </div>
-         <!-- <div class="button reset"> Reset </div> -->
+         <div class="button reset"> Reset </div>
         </div>
       </div>
     </div>
