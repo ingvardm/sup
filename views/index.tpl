@@ -36,8 +36,8 @@
           <div class="metrics">
             {%for met in metrics %}
               <div data-role="{{ met["role"] }}">
-                <div class="time">00:00:00</div>
-                <div class="button"> {{ met["title"] }} </div>
+                <!-- <div class="time">00:00:00</div> -->
+                <div class="button hiddenR" > {{ met["title"] }} </div>
               </div>
             {% endfor %}
           </div>

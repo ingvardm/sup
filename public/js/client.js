@@ -38,6 +38,8 @@ function onGoBtnClick(){
     curDate.innerHTML = "Today is: " + curDay +"/"+ curMonth +"/"+ curYear;
     welcomeTo.innerHTML = "Welcome to " + place_selector.value;
     pages.classList.toggle("active");
+    var btnToShow = document.querySelector(".hiddenR");
+    btnToShow.classList.toggle("hiddenR");
 }
 
 function onResetBtnClick(){
@@ -49,54 +51,64 @@ function onResetBtnClick(){
 function onMetricBtnClick(){
     /* Should use a closure with this one, 
        that way we dont loose the time pointer */
-    var updater;
+    /*var updater;*/
     return function(){
         if (this.classList.contains("done")) { return; }
-        if (this.classList.contains("waiting")) { 
+        /*if (this.classList.contains("waiting")) {*/
             /* Timer is alredy running */
-            clearInterval(updater);
+            /*clearInterval(updater);
             this.classList.add("done");
             this.innerHTML = "Done!"
             if (measurmentsDone()) { postMetricsData(); }
             return; 
-        }
+        }*/
 
         /* First time click */
-        updater = counter(new Date(), this.previousElementSibling);
-        this.classList.toggle("waiting");
-        this.innerHTML = "End";
+        /*updater = counter(new Date(), this.previousElementSibling);*/
+        this.classList.toggle("done");
+        var curTime = new Date(),
+            curHour = curTime.getHours(),
+            curMinutes = curTime.getMinutes(),
+            curSeconds = curTime.getSeconds();
+        if (curMinutes <= 9){curMinutes = "0" + curMinutes}
+        if (curSeconds <= 9){curSeconds = "0" + curSeconds}
+        this.innerHTML = curHour + ":" + curMinutes + ":" + curSeconds;
+        if (measurmentsDone()) { postMetricsData(); return;}
+        var btnToShow = document.querySelector(".hiddenR");
+        btnToShow.classList.toggle("hiddenR");
     }
+
 }
 
 
 
 /* General use function declarations */
 
-function counter(startTime, el){
+/*function counter(startTime, el){
     return setInterval(function(){
         var timeDiff = new Date() - startTime;
         el.innerHTML = convertTime(timeDiff);
     }, 1000);
-}
+}*/
 
-function convertTime(timestamp){
+//function convertTime(timestamp){
     /* strip ms */
-    timestamp /= 1000;
-    var seconds = Math.round(timestamp % 60);
+    //timestamp /= 1000;
+    //var seconds = Math.round(timestamp % 60);
 
     /* remove seconds */
-    timestamp = Math.floor(timestamp / 60);
-    var minutes = Math.round(timestamp % 60);
+    //timestamp = Math.floor(timestamp / 60);
+    //var minutes = Math.round(timestamp % 60);
 
     /* remove minutes */
-    timestamp = Math.floor(timestamp / 60);
-    var hours = Math.round(timestamp % 24);
+    //timestamp = Math.floor(timestamp / 60);
+    //var hours = Math.round(timestamp % 24);
 
-    return (hours < 10 ? "0" + hours : hours) + 
+    /*return (hours < 10 ? "0" + hours : hours) + 
         ":" + (minutes < 10 ? "0" + minutes : minutes) + 
         ":" + (seconds  < 10 ? "0" + seconds : seconds);
 }
-
+*/
 function postJSON(data){
     var request = new XMLHttpRequest();
     request.open("POST", "/metrics", true);
@@ -113,7 +125,7 @@ function postMetricsData(){
     };
 
     [].forEach.call(document.querySelector(".metrics").children, function(m){
-        data.metrics[m.dataset.role] = m.querySelector(".time").innerHTML;
+        data.metrics[m.dataset.role] = m.querySelector(".done").innerHTML;
     });
 
     postJSON(JSON.stringify(data));

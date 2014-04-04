@@ -120,6 +120,11 @@ body {
   transform: translate3d(-150%, 0, 0);
 }
 
+.button.hiddenR {
+  -webkit-transform: translate3d(150%, 0, 0);
+  transform: translate3d(150%, 0, 0);
+}
+
 .metrics > div {
   /*background-color: #ecf0f1;
   border: 1px solid #7f8c8d;
