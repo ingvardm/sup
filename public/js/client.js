@@ -69,10 +69,12 @@ function onMetricBtnClick(){
         var curTime = new Date(),
             curHour = curTime.getHours(),
             curMinutes = curTime.getMinutes(),
-            curSeconds = curTime.getSeconds();
+            curSeconds = curTime.getSeconds(),
+            tStamp = Date.now();
         if (curMinutes <= 9){curMinutes = "0" + curMinutes}
         if (curSeconds <= 9){curSeconds = "0" + curSeconds}
         this.innerHTML = curHour + ":" + curMinutes + ":" + curSeconds;
+        this.setAttribute("data-time", tStamp);
         if (measurmentsDone()) { postMetricsData(); return;}
         var btnToShow = document.querySelector(".hiddenR");
         btnToShow.classList.toggle("hiddenR");
@@ -125,7 +127,7 @@ function postMetricsData(){
     };
 
     [].forEach.call(document.querySelector(".metrics").children, function(m){
-        data.metrics[m.dataset.role] = m.querySelector(".done").innerHTML;
+        data.metrics[m.dataset.role] = m.querySelector(".done").getAttribute("data-time");
     });
 
     postJSON(JSON.stringify(data));
