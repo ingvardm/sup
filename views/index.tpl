@@ -28,6 +28,9 @@
             <div class="go">
               <div class="button hidden"> Go. </div>
             </div>
+            <div class="stats">
+                <div class="button hidden"> Get Stats</div>
+            </div>
         </div>
         <div class="page">
             <div class="welcome">W</div>

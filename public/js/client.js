@@ -4,6 +4,7 @@
 var pages = document.querySelector("#pages"),
     place_selector = document.querySelector("select"),
     go_button = document.querySelector(".go").querySelector(".button"),
+    stats_button = document.querySelector(".stats").querySelector(".button"),
     reset_button = document.querySelector(".reset"),
     metric_buttons = document.querySelector(".metrics").querySelectorAll(".button"),
     welcomeTo = document.querySelector(".welcome"),
@@ -15,6 +16,7 @@ var pages = document.querySelector("#pages"),
 
 place_selector.addEventListener("change", onPlaceChanged); 
 go_button.addEventListener("click", onGoBtnClick);
+stats_button.addEventListener("click", onStatsBtnClick);
 reset_button.addEventListener("click", onResetBtnClick);
 [].forEach.call(metric_buttons, function(btn){
     btn.addEventListener("click", onMetricBtnClick());
@@ -25,8 +27,8 @@ reset_button.addEventListener("click", onResetBtnClick);
 /* Event handlers */
 
 function onPlaceChanged(){
-    if (this.value) { go_button.classList.remove("hidden"); } 
-    else { go_button.classList.add("hidden"); }
+    if (this.value) { go_button.classList.remove("hidden"); stats_button.classList.remove("hidden");} 
+    else { go_button.classList.add("hidden"); stats_button.classList.add("hidden");}
 }
 
 function onGoBtnClick(){
@@ -40,6 +42,10 @@ function onGoBtnClick(){
     pages.classList.toggle("active");
     var btnToShow = document.querySelector(".hiddenR");
     btnToShow.classList.toggle("hiddenR");
+}
+
+function onStatsBtnClick(){
+    getStats();
 }
 
 function onResetBtnClick(){
@@ -137,4 +143,18 @@ function measurmentsDone() {
     return [].every.call(metric_buttons, function(btn){
         return btn.classList.contains("done");
     });
+}
+
+function getStats(){
+    var req = new XMLHttpRequest();
+    req.open('GET', '/metrics', true);
+    req.onreadystatechange = function (aEvt) {
+      if (req.readyState == 4) {
+         if(req.status == 200)
+          dump(req.responseText);
+         else
+          dump("Error loading page\n");
+      }
+    };
+    req.send(null);
 }
