@@ -147,13 +147,16 @@ function measurmentsDone() {
 
 function getStats(){
     var req = new XMLHttpRequest();
+    var data;
     req.open('GET', '/metrics', true);
     req.onreadystatechange = function (aEvt) {
       if (req.readyState == 4) {
-         if(req.status == 200)
-          dump(req.responseText);
+         if(req.status == 200){
+            data = eval('('+ req.responseText +')');
+          alert(data.visits[0].place);
+         }
          else
-          dump("Error loading page\n");
+          alert("Error loading page\n");
       }
     };
     req.send(null);

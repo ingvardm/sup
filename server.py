@@ -43,6 +43,10 @@ def postmetrics():
     else:
         # Refuse request
         abort(403)
+        
+@get("/metrics")
+def getmetrics():
+    return static_file(config.get("results_db"), root=".")
 
 
 @get("/")
