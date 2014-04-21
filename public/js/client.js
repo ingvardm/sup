@@ -133,7 +133,7 @@ function postMetricsData(){
     };
 
     [].forEach.call(document.querySelector(".metrics").children, function(m){
-        data.metrics[m.dataset.role] = m.querySelector(".done").getAttribute("data-time");
+        data.metrics[m.dataset.role] = parseInt(m.querySelector(".done").getAttribute("data-time"), 10);
     });
 
     postJSON(JSON.stringify(data));
@@ -153,11 +153,35 @@ function getStats(){
       if (req.readyState == 4) {
          if(req.status == 200){
             data = eval('('+ req.responseText +')');
-          alert(data.visits[0].place);
+            displayStats(data);
+             
          }
          else
           alert("Error loading page\n");
       }
     };
     req.send(null);
+}
+
+function displayStats(e){
+    var data = e,
+        lastVisitDate = 0,
+        avgVisitTime = 0,
+        avgOrderTime = 0;
+    for (var i=0;i<data.visits.length;i++){
+        if (data.visits[i].place == place_selector.value){
+            lastVisitDate = new Date(data.visits[i].timestamp);
+            if (avgVisitTime == 0 && avgOrderTime == 0){
+                avgVisitTime = data.visits[i].metrics.gotOut - data.visits[i].metrics.gotIN;
+                avgOrderTime = data.visits[i].metrics.gotFood - data.visits[i].metrics.placedOrder;
+            } else {
+                avgVisitTime = Math.floor((avgVisitTime + data.visits[i].metrics.gotOut - data.visits[i].metrics.gotIN)/2);
+                avgOrderTime = Math.floor((avgOrderTime + data.visits[i].metrics.gotFood - data.visits[i].metrics.placedOrder)/2);
+            }
+        }
+        
+    }
+    alert((lastVisitDate == 0 ? "Nothing to see here, move right along!" : "Last visit: " + lastVisitDate 
+           + "\nAvarage time spent: " + (avgVisitTime == 0 ? "No stats yet!" : Math.floor(avgVisitTime/1000)) 
+            + "\nAvarage order time: " + (avgOrderTime == 0 ? "No stats yet!" : Math.floor(avgOrderTime/1000))));
 }
