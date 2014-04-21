@@ -149,3 +149,24 @@ body {
 .button.reset:active {
   background-color: red; 
 }
+
+.statsList {
+    background-color: #fff;
+    height: auto;
+    color: #222;
+    text-align: left;
+    
+}
+
+.welcome{
+    text-align: center;
+    color: #111;
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.curDate{
+    text-align: center;
+    color: #444;
+    font-size: 1.5em;
+}

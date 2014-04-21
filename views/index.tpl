@@ -30,10 +30,11 @@
             </div>
             <div class="stats">
                 <div class="button hidden"> Get Stats</div>
+                <div class="button statsList hidden"></div>
             </div>
         </div>
         <div class="page">
-            <div class="welcome">W</div>
+            <div class="welcome"></div>
             <div class="curDate"></div>
           <!-- metrics page -->
           <div class="metrics">

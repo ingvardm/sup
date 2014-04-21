@@ -5,6 +5,7 @@ var pages = document.querySelector("#pages"),
     place_selector = document.querySelector("select"),
     go_button = document.querySelector(".go").querySelector(".button"),
     stats_button = document.querySelector(".stats").querySelector(".button"),
+    stats_list = document.querySelector(".stats").querySelector(".statsList"),
     reset_button = document.querySelector(".reset"),
     metric_buttons = document.querySelector(".metrics").querySelectorAll(".button"),
     welcomeTo = document.querySelector(".welcome"),
@@ -27,6 +28,7 @@ reset_button.addEventListener("click", onResetBtnClick);
 /* Event handlers */
 
 function onPlaceChanged(){
+    stats_list.classList.add("hidden");
     if (this.value) { go_button.classList.remove("hidden"); stats_button.classList.remove("hidden");} 
     else { go_button.classList.add("hidden"); stats_button.classList.add("hidden");}
 }
@@ -157,7 +159,7 @@ function getStats(){
              
          }
          else
-          alert("Error loading page\n");
+          alert("Error loading results.json");
       }
     };
     req.send(null);
@@ -181,7 +183,12 @@ function displayStats(e){
         }
         
     }
-    alert((lastVisitDate == 0 ? "Nothing to see here, move right along!" : "Last visit: " + lastVisitDate 
-           + "\nAvarage time spent: " + (avgVisitTime == 0 ? "No stats yet!" : Math.floor(avgVisitTime/1000)) 
-            + "\nAvarage order time: " + (avgOrderTime == 0 ? "No stats yet!" : Math.floor(avgOrderTime/1000))));
+    printResults((lastVisitDate == 0 ? "Nothing to see here, move right along!" : "Last visit: " + lastVisitDate 
+           + "</br>Avarage time spent: " + (avgVisitTime == 0 ? "No stats yet!" : Math.floor(avgVisitTime/1000)) 
+            + "</br>Avarage order time: " + (avgOrderTime == 0 ? "No stats yet!" : Math.floor(avgOrderTime/1000))));
+}
+
+function printResults(e){
+    stats_list.classList.remove("hidden");
+    stats_list.innerHTML = e;
 }
