@@ -15,12 +15,8 @@ var pages = document.querySelector("#pages"),
 
 /* Events */
 
-place_selector.addEventListener("change", onPlaceChanged); 
-go_button.addEventListener("click", onGoBtnClick);
-stats_button.addEventListener("click", onStatsBtnClick);
-reset_button.addEventListener("click", onResetBtnClick);
-[].forEach.call(metric_buttons, function(btn){
-    btn.addEventListener("click", onMetricBtnClick());
+require(['UI'], function(UI){
+	UI.addEvLis();
 });
 
 
@@ -29,6 +25,7 @@ reset_button.addEventListener("click", onResetBtnClick);
 
 function onPlaceChanged(){
     stats_list.classList.add("hidden");
+    displayStats();
     if (this.value) { go_button.classList.remove("hidden"); stats_button.classList.remove("hidden");} 
     else { go_button.classList.add("hidden"); stats_button.classList.add("hidden");}
 }
@@ -147,45 +144,36 @@ function measurmentsDone() {
     });
 }
 
-function getStats(){
-    var req = new XMLHttpRequest();
-    var data;
-    req.open('GET', '/metrics', true);
-    req.onreadystatechange = function (aEvt) {
-      if (req.readyState == 4) {
-         if(req.status == 200){
-            data = eval('('+ req.responseText +')');
-            displayStats(data);
-             
-         }
-         else
-          alert("Error loading results.json");
-      }
-    };
-    req.send(null);
+function displayStats(){
+require(['server'], function(_server){   
+        var data;
+
+    data = _server.getStats(onStatsDataReturned);
+   
+});
 }
 
-function displayStats(e){
-    var data = e,
-        lastVisitDate = 0,
-        avgVisitTime = 0,
-        avgOrderTime = 0;
-    for (var i=0;i<data.visits.length;i++){
-        if (data.visits[i].place == place_selector.value){
-            lastVisitDate = new Date(data.visits[i].timestamp);
-            if (avgVisitTime == 0 && avgOrderTime == 0){
-                avgVisitTime = data.visits[i].metrics.gotOut - data.visits[i].metrics.gotIN;
-                avgOrderTime = data.visits[i].metrics.gotFood - data.visits[i].metrics.placedOrder;
-            } else {
-                avgVisitTime = Math.floor((avgVisitTime + data.visits[i].metrics.gotOut - data.visits[i].metrics.gotIN)/2);
-                avgOrderTime = Math.floor((avgOrderTime + data.visits[i].metrics.gotFood - data.visits[i].metrics.placedOrder)/2);
+function onStatsDataReturned(data){
+            var lastVisitDate = 0,
+            avgVisitTime = 0,
+            avgOrderTime = 0;
+    //alert(data);
+        for (var i=0;i<data.visits.length;i++){
+            if (data.visits[i].place == place_selector.value){
+                lastVisitDate = new Date(data.visits[i].timestamp);
+                if (avgVisitTime == 0 && avgOrderTime == 0){
+                    avgVisitTime = data.visits[i].metrics.gotOut - data.visits[i].metrics.gotIN;
+                    avgOrderTime = data.visits[i].metrics.gotFood - data.visits[i].metrics.placedOrder;
+                } else {
+                    avgVisitTime = Math.floor((avgVisitTime + data.visits[i].metrics.gotOut - data.visits[i].metrics.gotIN)/2);
+                    avgOrderTime = Math.floor((avgOrderTime + data.visits[i].metrics.gotFood - data.visits[i].metrics.placedOrder)/2);
+                }
             }
+
         }
-        
-    }
-    printResults((lastVisitDate == 0 ? "Nothing to see here, move right along!" : "Last visit: " + lastVisitDate 
-           + "</br>Avarage time spent: " + (avgVisitTime == 0 ? "No stats yet!" : Math.floor(avgVisitTime/1000)) 
-            + "</br>Avarage order time: " + (avgOrderTime == 0 ? "No stats yet!" : Math.floor(avgOrderTime/1000))));
+        printResults((lastVisitDate == 0 ? "Nothing to see here, move right along!" : "Last visit: " + lastVisitDate 
+               + "</br>Avarage time spent: " + (avgVisitTime == 0 ? "No stats yet!" : Math.floor(avgVisitTime/1000)) 
+                + "</br>Avarage order time: " + (avgOrderTime == 0 ? "No stats yet!" : Math.floor(avgOrderTime/1000))));
 }
 
 function printResults(e){

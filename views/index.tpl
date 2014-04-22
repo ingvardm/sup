@@ -49,6 +49,6 @@
         </div>
       </div>
     </div>
-    <script src="static/js/client.js" type="text/javascript"></script>
+    <script data-main="static/js/client" src="http://requirejs.org/docs/release/2.1.11/minified/require.js" type="text/javascript"></script>
   </body>
 </html>
