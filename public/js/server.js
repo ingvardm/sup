@@ -17,6 +17,29 @@ define ([], function(){
               }
             };
             req.send(null);
+        },
+        
+        postJSON: function(data){
+            var request = new XMLHttpRequest();
+            request.open("POST", "/metrics", true);
+            request.setRequestHeader("Content-type", "application/json;");
+            request.send(data);
+        },
+    
+        postMetricsData: function(){
+            
+            var data = {
+                date: Date(),
+                timestamp: Date.now(),
+                place: place_selector.value,
+                metrics: {}
+            };
+
+            [].forEach.call(document.querySelector(".metrics").children, function(m){
+                data.metrics[m.dataset.role] = parseInt(m.querySelector(".done").getAttribute("data-time"), 10);
+            });
+
+            this.postJSON(JSON.stringify(data));
         }
     }
 });
