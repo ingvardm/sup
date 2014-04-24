@@ -30,12 +30,10 @@ define([], function(){
         },
         
         onGoBtnClick: function(){
-            var today = new Date(),
-                curDay = today.getDate(),
-                curMonth = today.getMonth() + 1,
-                curYear = today.getFullYear();
-
-            curDate.innerHTML = "Today is: " + curDay +"/"+ curMonth +"/"+ curYear;
+            var today = new Date();
+            require(['ms2h'], function(_T){
+                curDate.innerHTML = "Today is: " + _T.getDMYfromTimestamp(today);
+            });
             welcomeTo.innerHTML = "Welcome to " + place_selector.value;
             pages.classList.toggle("active");
             var btnToShow = document.querySelector(".hiddenR");
@@ -51,15 +49,15 @@ define([], function(){
         onMetricBtnClick: function(){
             return function(){
                 if (this.classList.contains("done")) { return; }
+                
                 this.classList.toggle("done");
-                var curTime = new Date(),
-                    curHour = curTime.getHours(),
-                    curMinutes = curTime.getMinutes(),
-                    curSeconds = curTime.getSeconds(),
+                var btn = this,
                     tStamp = Date.now();
-                if (curMinutes <= 9){curMinutes = "0" + curMinutes}
-                if (curSeconds <= 9){curSeconds = "0" + curSeconds}
-                this.innerHTML = curHour + ":" + curMinutes + ":" + curSeconds;
+                //if (curMinutes <= 9){curMinutes = "0" + curMinutes}
+                //if (curSeconds <= 9){curSeconds = "0" + curSeconds}
+                require(['ms2h'], function(_T){
+                    btn.innerHTML += '@ ' + _T.getTime();
+                });
                 this.setAttribute("data-time", tStamp);
 
                 require(['server'], function(_server){
@@ -96,10 +94,10 @@ define([], function(){
                 }
 
             }
-            require(['ms2h'], function(_ms2h){
-                ui.printResults((lastVisitDate == 0 ? "Nothing to see here, move along!" : "Last visit: " + _ms2h.getDMYfromTimestamp(lastVisitDate) 
-                    + "</br>Avarage time spent: " + _ms2h.getHMS(avgVisitTime)
-                    + "</br>Avarage order time: " + _ms2h.getHMS(avgOrderTime)));
+            require(['ms2h'], function(_T){
+                ui.printResults((lastVisitDate == 0 ? "Nothing to see here, move along!" : "Last visit: " + _T.getDMYfromTimestamp(lastVisitDate) 
+                    + "</br>Avarage time spent: " + _T.getHMS(avgVisitTime)
+                    + "</br>Avarage order time: " + _T.getHMS(avgOrderTime)));
 
             });
         },

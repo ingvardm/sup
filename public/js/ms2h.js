@@ -23,6 +23,14 @@ define([], function(){
             
             return day + '/' + (month <=9 ? month = '0' + month : null) + '/' + year;
                 
+        },
+        
+        getTime: function(){
+            var cDate = new Date(),
+                cHours = cDate.getHours(),
+                cMinutes = cDate.getMinutes();
+            
+            return (cHours <= 9 ? '0' + cHours : cHours) + ':' + (cMinutes <= 9 ? '0' + cMinutes : cMinutes);
         }
     }
 });
