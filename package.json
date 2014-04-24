@@ -1,0 +1,15 @@
+{
+  "name": "sup",
+  "version": "0.0.0",
+  "description": "sup",
+  "main": "public/js/client.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/ingvardm/sup"
+  },
+  "author": "",
+  "license": "ISC"
+}

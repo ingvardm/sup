@@ -1,4 +1,5 @@
 define ([], function(){
+    var place_selector  = document.querySelector("select");
     return {
         getStats: function(callback){
             var req = new XMLHttpRequest();
