@@ -7,7 +7,12 @@ define([], function(){
                 reset_button = document.querySelector(".reset"),
                 metric_buttons = document.querySelector(".metrics").querySelectorAll(".button"),
                 welcomeTo = document.querySelector(".welcome"),
+                times = [],
                 curDate = document.querySelector(".curDate");
+                
+    if (typeof(sessionStorage.times) !== 'undefined'){
+        var times = sessionStorage.times.split(",");
+    }
                
     var ui = {
         addEvLis: function(){
@@ -30,6 +35,8 @@ define([], function(){
         },
         
         onGoBtnClick: function(){
+            sessionStorage.place = place_selector.value;
+            //alert(sessionStorage.place);
             var today = new Date();
             require(['ms2h'], function(_T){
                 curDate.innerHTML = "Today is: " + _T.getDMYfromTimestamp(today);
@@ -43,6 +50,7 @@ define([], function(){
         onResetBtnClick: function(){
             if (confirm("Are you sure ?")) {
                 location.reload(true);
+                sessionStorage.clear();
             }
         },
         
@@ -56,7 +64,7 @@ define([], function(){
                 //if (curMinutes <= 9){curMinutes = "0" + curMinutes}
                 //if (curSeconds <= 9){curSeconds = "0" + curSeconds}
                 require(['ms2h'], function(_T){
-                    btn.innerHTML += '@ ' + _T.getTime();
+                    btn.innerHTML += '@ ' + _T.getTime(tStamp);
                 });
                 this.setAttribute("data-time", tStamp);
 
@@ -66,6 +74,9 @@ define([], function(){
 
                 var btnToShow = document.querySelector(".hiddenR");
                 btnToShow.classList.toggle("hiddenR");
+                times.push(tStamp);
+                sessionStorage.setItem('times', times);
+                //alert(sessionStorage.times);
             }
 
         },

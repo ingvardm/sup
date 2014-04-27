@@ -1,2 +1,3 @@
 env
 data/results.json
+node_modules/*

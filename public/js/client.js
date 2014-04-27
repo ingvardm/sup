@@ -1,5 +1,6 @@
 'use strict';
-
-require(['UI'], function(UI){
+//alert(sessionStorage.place);
+require(['UI', 'session'], function(UI, session){
 	UI.addEvLis();
+    session.load();
 });

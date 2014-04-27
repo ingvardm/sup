@@ -25,8 +25,8 @@ define([], function(){
                 
         },
         
-        getTime: function(){
-            var cDate = new Date(),
+        getTime: function(tStamp){
+            var cDate = new Date(tStamp),
                 cHours = cDate.getHours(),
                 cMinutes = cDate.getMinutes();
             
