@@ -16,7 +16,6 @@
           <!-- main page -->
             <div class="logo">
               <img src="static/img/logo.png" alt="logo">
-                <span>s&#129;pe!</span>
             </div>
             <div class="places">
               <select>
