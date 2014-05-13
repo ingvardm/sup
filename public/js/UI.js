@@ -34,10 +34,6 @@ define(['dom', 'ms2h', 'server', 'globalTimer'], function(dom, _T, _server, _GT)
             dom.pages.classList.toggle("active");
             var btnToShow = document.querySelector(".hiddenR");
             btnToShow.classList.toggle("hiddenR");
-
-            //TIMER
-            dom.globalTimer.classList.toggle("hiddenTimer");
-            _GT.new();
         },
         
         onResetBtnClick: function(){
@@ -50,7 +46,7 @@ define(['dom', 'ms2h', 'server', 'globalTimer'], function(dom, _T, _server, _GT)
         onMetricBtnClick: function(){
             return function(){
                 if (this.classList.contains("done")) { return; }
-                
+                if (this.innerHTML == " Got in ") {_GT.new();} //start timer if it's the first button.
                 this.classList.toggle("done");
                 var btn = this,
                     tStamp = Date.now();
