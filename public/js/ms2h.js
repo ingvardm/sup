@@ -3,16 +3,15 @@ define([], function(){
     return{
         getHMS: function(miliseconds){
             var time = Math.floor(miliseconds/1000),
-            hours = Math.floor(time / 3600),
-            minutes = Math.floor((time - hours * 3600 )/60),
-            seconds = time - (hours * 3600 + minutes * 60),
-            humanTime;
-            
-            seconds <=9 ? seconds = '0' + seconds: null ;
-            minutes <=9 ? minutes = '0' + minutes: null ;
-            hours <=9 ? hours = '0' + hours: null ;
-            humanTime = hours + ':' + minutes + ':' + seconds;
-            return humanTime;
+                hours = Math.floor(time / 3600),
+                minutes = Math.floor((time - hours * 3600 )/60),
+                seconds = time - (hours * 3600 + minutes * 60),
+                humanTime;
+                seconds <=9 ? seconds = '0' + seconds: null ;
+                minutes <=9 ? minutes = '0' + minutes: null ;
+                hours <=9 ? hours = '0' + hours: null ;
+                humanTime = hours + ':' + minutes + ':' + seconds;
+                return humanTime;
         },
         
         getDMYfromTimestamp: function(timestamp){

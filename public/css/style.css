@@ -25,6 +25,7 @@ html {
 body {
   background-color: #fff;
   color: #555;
+  overflow:hidden;
 }
 
 #container {
@@ -60,7 +61,7 @@ body {
 
 .logo {
   margin: 2rem auto;
-  width: 128px;
+  width: 341px;
   height: 128px;
 }
 
@@ -169,4 +170,40 @@ body {
     text-align: center;
     color: #444;
     font-size: 1.5em;
+}
+
+#happyMushroom{
+    width:144px;
+    height: 198px;
+    position:absolute;
+    right:-20px;
+    bottom:-7px;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+
+}
+
+#happyMushroom.hideR{
+    right:-200px;
+}
+
+#globalTimer{
+  background: #555;
+  position:absolute;
+  top:0px;
+  right:0px;
+  /*width:60px;
+  height:25px;*/
+  font-size: 15px;
+  color:#eee;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  font-size: 16px;
+  padding:5px 10px 5px 15px;
+  -webkit-border-radius: 25px 0 0 25px;
+  border-radius: 25px 0 0 25px;
+}
+
+#globalTimer.hiddenTimer{
+  right:-100px;
 }

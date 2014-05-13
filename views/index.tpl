@@ -10,12 +10,14 @@
     <link rel="stylesheet" href="static/css/style.css" type="text/css">
   </head>
   <body>
+    <div id="globalTimer" class="hiddenTimer">00:00:00</div>
+    <img src="static/img/happy_mushroom_1.png" alt="mushroom!" id="happyMushroom" class="hideR">
     <div id="container">
       <div id="pages">
         <div class="page">
           <!-- main page -->
             <div class="logo">
-              <img src="static/img/logo.png" alt="logo">
+              <img src="static/img/logo_supe1.png" alt="logo">
             </div>
             <div class="places">
               <select>
@@ -36,6 +38,7 @@
         <div class="page">
             <div class="welcome"></div>
             <div class="curDate"></div>
+
           <!-- metrics page -->
           <div class="metrics">
             {%for met in metrics %}
