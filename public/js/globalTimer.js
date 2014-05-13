@@ -7,7 +7,7 @@ define(['dom', 'ms2h'], function(dom, _T){
         },
 
         cont: function(){
-            seconds = parseInt((Date.now() - sessionStorage.times.split(",")[0]) / 1000);
+            seconds = Math.ceil(parseInt((Date.now() - sessionStorage.times.split(",")[0]) / 1000));
             dom.globalTimer.innerHTML = _T.getHMS(seconds*1000);
             globalTimer.start();
         },
